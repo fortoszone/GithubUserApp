@@ -14,6 +14,7 @@ object GhData {
                 val gh = GhUser()
                 gh.uname = uname[position]
                 gh.userpic = userpic[position]
+                list.add(gh)
             }
             return list
         }
