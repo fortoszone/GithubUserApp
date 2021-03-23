@@ -1,46 +1,52 @@
 package com.fort0.githubuserapp
 
+import GhUserModel
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import com.fort0.githubuserapp.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityDetailBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val imgPhoto: ImageView = findViewById(R.id.detail_userpic)
-        val tvfname: TextView = findViewById(R.id.detail_fname)
-        val tvuname: TextView = findViewById(R.id.detail_uname)
+        initActionBar()
+        getDataBind()
+    }
 
-        val uimage = intent.getIntExtra(EXTRA_IMAGE, 0)
-        val fname = intent.getStringExtra(EXTRA_FNAME)
-        val uname = intent.getStringExtra(EXTRA_UNAME)
+    private fun getDataBind() {
+        val user = intent.getParcelableExtra<GhUserModel?>(EXTRA_DETAILS) as GhUserModel
 
-        imgPhoto.setImageResource(uimage)
-        tvfname.text = fname
-        tvuname.text = uname
-
-        val mToolbar = findViewById<Toolbar>(R.id.detail_toolbar)
-        setSupportActionBar(mToolbar)
-
-        val actionbar = supportActionBar
-        actionbar!!.title = R.string.user_name.toString()
-        actionbar.setDisplayHomeAsUpEnabled(true)
+        binding.detailFname.text = user.fname
+        binding.detailUname.text = user.uname
+        binding.detailCompany.text = user.company
+        binding.detailLocation.text = user.location
+        binding.followers.text = user.followers
+        binding.following.text = user.following
+        binding.repository.text = user.repository
+        binding.detailUserpic.setImageResource(user.userpic)
     }
 
     companion object {
-        const val EXTRA_IMAGE = "extra_image"
-        const val EXTRA_FNAME = "extra_fname"
-        const val EXTRA_UNAME = "extra_uname"
+        const val EXTRA_DETAILS = "extra_details"
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }
+
+    private fun initActionBar() {
+        val mToolbar = findViewById<Toolbar>(R.id.detail_toolbar)
+        setSupportActionBar(mToolbar)
+
+        val actionbar = supportActionBar
+        actionbar!!.title = getString(R.string.user_name)
+        actionbar.setDisplayHomeAsUpEnabled(true)
+    }
+
 }

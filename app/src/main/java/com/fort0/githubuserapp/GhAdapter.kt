@@ -1,45 +1,50 @@
 package com.fort0.githubuserapp
 
+import GhUserModel
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import com.fort0.githubuserapp.databinding.GhUserRowBinding
 
+class GhAdapter(private val context: Context, private val ghlist: ArrayList<GhUserModel>) :
+    RecyclerView.Adapter<GhAdapter.GhViewHolder>() {
+    lateinit var users: ArrayList<GhUserModel>
 
-class GhAdapter(private val ghlist: ArrayList<GhUser>) : RecyclerView.Adapter<GhAdapter.ListViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, i: Int): ListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GhAdapter.GhViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.gh_user_row, parent, false)
-        return ListViewHolder(view)
-
+        return GhViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val (fname, uname, userpic) = ghlist[position]
-
-        Glide.with(holder.itemView.context)
-            .load(userpic)
-            .apply(RequestOptions().override(500, 500))
-            .into(holder.imgPhoto)
-
-        holder.tvfname.text = fname
-        holder.tvuname.text = uname
-
+    override fun onBindViewHolder(holder: GhAdapter.GhViewHolder, position: Int) {
+        holder.bind(this.ghlist[position])
     }
 
     override fun getItemCount(): Int {
         return this.ghlist.size
-
     }
 
-    inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvfname: TextView = itemView.findViewById(R.id.gh_fname)
-        var tvuname: TextView = itemView.findViewById(R.id.gh_uname)
-        var imgPhoto: ImageView = itemView.findViewById(R.id.gh_userpic)
+    inner class GhViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val binding = GhUserRowBinding.bind(view)
+        fun bind(user: GhUserModel) {
+            Glide.with(itemView)
+                .load(user.userpic)
+                .into(binding.ghUserpic)
 
+            binding.ghUname.text = user.uname
+            binding.ghFname.text = user.fname
+
+            with(itemView) {
+                binding.gradientView.setOnClickListener {
+                    val moveActivity = Intent(itemView.context, DetailActivity::class.java)
+                    moveActivity.putExtra(DetailActivity.EXTRA_DETAILS, user)
+                    itemView.context.startActivity(moveActivity)
+                }
+            }
+        }
     }
 }

@@ -2,11 +2,22 @@
   <dictionary name="fort0">
     <words>
       <w>fname</w>
+      <w>fnames</w>
+      <w>ghdetails</w>
       <w>ghlist</w>
+      <w>ghuser</w>
+      <w>tvcompany</w>
       <w>tvfname</w>
+      <w>tvfollowers</w>
+      <w>tvfollowing</w>
+      <w>tvlocation</w>
+      <w>tvrepos</w>
       <w>tvuname</w>
+      <w>uimage</w>
       <w>uname</w>
+      <w>unames</w>
       <w>userpic</w>
+      <w>userpics</w>
     </words>
   </dictionary>
 </component>
