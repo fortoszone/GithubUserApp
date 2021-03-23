@@ -4,6 +4,7 @@ import GhUserModel
 import android.content.res.TypedArray
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fort0.githubuserapp.databinding.ActivityMainBinding
@@ -28,15 +29,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(findViewById(R.id.main_toolbar))
-        supportActionBar?.setDisplayShowTitleEnabled(true)
-
         rvGh = binding.rvGh
         rvGh.setHasFixedSize(true)
 
         adapter = GhAdapter(this, users)
         rvGh.adapter = adapter
 
+        initActionBar()
         getData()
         addItem()
         showRecyclerView()
@@ -77,13 +76,12 @@ class MainActivity : AppCompatActivity() {
         adapter.users = users
     }
 
-    /*override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_about -> {
-                startActivity(Intent(applicationContext, AboutActivity::class.java))
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }*/
+    private fun initActionBar() {
+        val mToolbar = binding.mainToolbar
+        setSupportActionBar(mToolbar)
+
+        val actionbar = supportActionBar
+        actionbar!!.title = getString(R.string.app_name)
+
+    }
 }
