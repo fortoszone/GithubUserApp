@@ -39,7 +39,7 @@ class GhAdapter(private val context: Context, private val ghlist: ArrayList<GhUs
             binding.ghFname.text = user.fname
 
             with(itemView) {
-                binding.gradientView.setOnClickListener {
+                binding.user.setOnClickListener {
                     val moveActivity = Intent(itemView.context, DetailActivity::class.java)
                     moveActivity.putExtra(DetailActivity.EXTRA_DETAILS, user)
                     itemView.context.startActivity(moveActivity)

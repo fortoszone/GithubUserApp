@@ -119,4 +119,8 @@
         <item>@drawable/user9</item>
         <item>@drawable/user10</item>
     </string-array>
+    <string name="title_activity_test">test</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="search">Search</string>
 </resources>
