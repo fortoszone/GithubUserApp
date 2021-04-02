@@ -1,7 +1,8 @@
-package com.fort0.githubuserapp
+package com.fort0.githubuserapp.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.fort0.githubuserapp.R
 
 class AboutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

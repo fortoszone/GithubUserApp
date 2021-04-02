@@ -1,21 +1,21 @@
-package com.fort0.githubuserapp
+package com.fort0.githubuserapp.ui
 
-import GhUserModel
-import android.app.SearchManager
-import android.content.Context
+import com.fort0.githubuserapp.model.GhUserModel
 import android.content.res.TypedArray
 import android.os.Bundle
-import android.view.View
-import android.widget.SearchView
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fort0.githubuserapp.databinding.ActivityMainBinding
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
+import androidx.appcompat.widget.SearchView
+import com.fort0.githubuserapp.R
+import com.fort0.githubuserapp.adapters.GhAdapter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter: GhAdapter
@@ -104,29 +104,23 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun initSearch() {
-        val searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
-        val searchView = menu.findItem(R.id.search).actionView as SearchView
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        searchView.queryHint = resources.getString(R.string.search)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                Toast.makeText(this@MainActivity, query, Toast.LENGTH_SHORT).show()
-                return true
-            }
-            override fun onQueryTextChange(newText: String): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.nav_menu, menu)
+        val search: MenuItem? = menu?.findItem(R.id.search)
+        val sv: SearchView = search!!.actionView as SearchView
+        sv.queryHint = getString(R.string.search)
+
+        sv.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+
         })
 
+        return super.onCreateOptionsMenu(menu)
     }
-
-    /*private fun initActionBar() {
-        val mToolbar = binding.mainToolbar
-        setSupportActionBar(mToolbar)
-
-        val actionbar = supportActionBar
-        actionbar!!.title = getString(R.string.app_name)
-
-    }*/
 }

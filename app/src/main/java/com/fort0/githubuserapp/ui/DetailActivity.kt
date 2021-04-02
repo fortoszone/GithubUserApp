@@ -1,11 +1,14 @@
-package com.fort0.githubuserapp
+package com.fort0.githubuserapp.ui
 
-import GhUserModel
-import android.annotation.SuppressLint
+import com.fort0.githubuserapp.model.GhUserModel
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import com.fort0.githubuserapp.R
+import com.fort0.githubuserapp.adapters.ViewPagerAdapter
 import com.fort0.githubuserapp.databinding.ActivityDetailBinding
+import com.fort0.githubuserapp.fragments.FollowersFragment
+import com.fort0.githubuserapp.fragments.FollowingFragment
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
@@ -16,6 +19,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         getDataBind()
+        initTabLayout()
     }
 
     private fun getDataBind() {
@@ -40,5 +44,16 @@ class DetailActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    private fun initTabLayout() {
+        val adapter = ViewPagerAdapter(supportFragmentManager)
+        adapter.addFragment(FollowingFragment(), getString(R.string.following))
+        adapter.addFragment(FollowersFragment(), getString(R.string.followers))
+        followViewPager.adapter = adapter
+        followTabLayout.setupWithViewPager(followViewPager)
+
+        followTabLayout.getTabAt(0)!!
+        followTabLayout.getTabAt(1)!!
     }
 }
