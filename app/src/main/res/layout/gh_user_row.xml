@@ -19,25 +19,25 @@
         android:background="@drawable/rounded_corner_view">
 
         <TextView
-            android:id="@+id/gh_uname"
+            android:id="@+id/gh_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/gh_fname"
-            android:layout_marginStart="8dp"
-            android:text="@string/user"
+            android:layout_below="@id/gh_uname"
+            android:layout_marginLeft="88dp"
+            android:text="@string/id"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/gh_userpic"
-            app:layout_constraintTop_toTopOf="@id/gh_fname"
-            app:layout_constraintVertical_bias="0.442" />
+            app:layout_constraintTop_toTopOf="@id/gh_uname"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/gh_fname"
+            android:id="@+id/gh_uname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/full_name"
+            android:text="@string/user_name"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
