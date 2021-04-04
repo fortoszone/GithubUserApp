@@ -18,13 +18,13 @@ class FollowersAdapter(private val context: FollowersFragment, private val ghlis
     RecyclerView.Adapter<FollowersAdapter.GhViewHolder>() {
     lateinit var users: ArrayList<GhUserModel>
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GhViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FollowersViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.gh_user_row, parent, false)
-        return GhViewHolder(view)
+        return FollowersViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: GhViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FollowersViewHolder, position: Int) {
         holder.bind(this.ghlist[position])
     }
 
@@ -32,7 +32,7 @@ class FollowersAdapter(private val context: FollowersFragment, private val ghlis
         return this.ghlist.size
     }
 
-    inner class GhViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class FollowersViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = GhUserRowBinding.bind(view)
         fun bind(user: GhUserModel) {
             Glide.with(itemView)

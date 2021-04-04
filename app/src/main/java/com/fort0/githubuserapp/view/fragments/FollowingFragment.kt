@@ -22,9 +22,6 @@ import org.json.JSONArray
 
 class FollowingFragment : Fragment() {
     private lateinit var adapter: FollowingAdapter
-    private lateinit var uname: String
-    private lateinit var userid: String
-    private lateinit var userpic: String
     private var users: ArrayList<GhUserModel> = arrayListOf()
     private lateinit var detailBinding: GhUserRowBinding
 

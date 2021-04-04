@@ -9,7 +9,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/tl_margin_hor"
+        android:layout_marginTop="@dimen/tl_margin_top">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_gh"
@@ -17,13 +19,6 @@
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
             tools:listitem="@layout/gh_user_row" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
 
         <ImageView
             android:id="@+id/iv_search"

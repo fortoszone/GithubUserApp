@@ -23,9 +23,6 @@ import org.json.JSONArray
 
 class FollowersFragment : Fragment() {
     private lateinit var adapter: FollowersAdapter
-    private lateinit var uname: String
-    private lateinit var userid: String
-    private lateinit var userpic: String
     private var users: ArrayList<GhUserModel> = arrayListOf()
 
     override fun onCreateView(
