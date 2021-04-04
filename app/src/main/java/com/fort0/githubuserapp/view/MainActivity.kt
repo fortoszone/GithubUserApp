@@ -1,33 +1,35 @@
-package com.fort0.githubuserapp.ui
+package com.fort0.githubuserapp.view
 
+import android.content.Intent
 import com.fort0.githubuserapp.model.GhUserModel
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.fort0.githubuserapp.adapters.GhAdapter
+import com.fort0.githubuserapp.viewmodel.GhAdapter
 import com.fort0.githubuserapp.R
 import com.fort0.githubuserapp.databinding.ActivityMainBinding
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
-import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.gh_user_row.*
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter: GhAdapter
     private lateinit var rvGh: RecyclerView
-    private lateinit var unames: String
-    private lateinit var id: String
-    private lateinit var userpics: String
-    private var users: ArrayList<GhUserModel> = arrayListOf()
+    private lateinit var uname: String
+    private lateinit var userid: String
+    private lateinit var userpic: String
     private lateinit var binding: ActivityMainBinding
+    private var users: ArrayList<GhUserModel> = arrayListOf()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         adapter = GhAdapter(this, users)
         rvGh.adapter = adapter
+
     }
 
     private fun showRecyclerView() {
@@ -49,8 +52,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun getUserData(username: String) {
         val client = AsyncHttpClient()
-        val url = "https://api.github.com/search/users?q=${username}"
-        client.addHeader("Authorization", "token d2f2cc3f88418522fdd4a1a5cdf264ec464a6068")
+        val url = "https://api.github.com/search/users?q=$username"
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "fortoszone")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -83,17 +86,18 @@ class MainActivity : AppCompatActivity() {
         try {
             val jsonObject = JSONObject(response)
             val items = jsonObject.getJSONArray("items")
-            val itemObj = items.getJSONObject(0)
-
-            unames = itemObj.getString("login")
-            id = itemObj.getInt("id").toString()
-            userpics = itemObj.getString("avatar_url")
+            for (i in 0 until items.length()) {
+                val itemObj = items.getJSONObject(i)
+                userid = itemObj.getInt("id").toString()
+                uname = itemObj.getString("login")
+                userpic = itemObj.getString("avatar_url")
+            }
 
             users.add(
                 GhUserModel(
-                    unames,
-                    id,
-                    userpics
+                    userid,
+                    uname,
+                    userpic
                 )
             )
 
@@ -112,13 +116,18 @@ class MainActivity : AppCompatActivity() {
 
         sv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query!!.isNotEmpty()) {
+                return if (query!!.isNotEmpty()) {
                     getUserData(query)
-                    return true
+                    iv_search.visibility = View.INVISIBLE
+                    search_desc.visibility = View.INVISIBLE
+
+                    true
+
                 } else {
-                    users.clear()
+                    iv_search.visibility = View.VISIBLE
+                    false
                 }
-                return false
+
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {

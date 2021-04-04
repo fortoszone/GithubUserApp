@@ -124,4 +124,6 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="search">Search</string>
     <string name="id">userid</string>
+    <string name="tv_id">ID :</string>
+    <string name="search_desc">Search some bb</string>
 </resources>

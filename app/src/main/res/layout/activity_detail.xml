@@ -10,9 +10,10 @@
         android:id="@+id/detail_userpic"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="30dp"
         android:src="@drawable/deva"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"/>
 
     <LinearLayout
         android:id="@+id/board"
@@ -134,7 +135,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/gh_user_data"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="15dp">
 
     </com.google.android.material.tabs.TabLayout>
 

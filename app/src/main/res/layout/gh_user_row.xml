@@ -19,27 +19,42 @@
         android:background="@drawable/rounded_corner_view">
 
         <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gh_uname"
+            android:layout_marginStart="4dp"
+            android:text="@string/id"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/gh_id"
+            app:layout_constraintTop_toTopOf="@id/gh_uname"
+            app:layout_constraintVertical_bias="0.423" />
+
+        <TextView
             android:id="@+id/gh_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/gh_uname"
-            android:layout_marginLeft="88dp"
-            android:text="@string/id"
+            android:layout_marginStart="@dimen/text_margin_left"
+            android:text="@string/tv_id"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/gh_userpic"
             app:layout_constraintTop_toTopOf="@id/gh_uname"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.423" />
 
         <TextView
             android:id="@+id/gh_uname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/text_margin_left"
             android:text="@string/user_name"
             android:textColor="@color/white"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/gh_userpic"
             app:layout_constraintTop_toTopOf="parent"
@@ -54,6 +69,7 @@
             app:layout_constraintBottom_toBottomOf="@id/user"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/user"
+            app:layout_constraintRight_toRightOf="@id/gh_uname"
             app:srcCompat="@drawable/deva" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

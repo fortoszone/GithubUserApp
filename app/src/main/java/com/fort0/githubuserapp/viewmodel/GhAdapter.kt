@@ -1,4 +1,4 @@
-package com.fort0.githubuserapp.adapters
+package com.fort0.githubuserapp.viewmodel
 
 import com.fort0.githubuserapp.model.GhUserModel
 import android.content.Context
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.fort0.githubuserapp.R
 import com.fort0.githubuserapp.databinding.GhUserRowBinding
-import com.fort0.githubuserapp.ui.DetailActivity
+import com.fort0.githubuserapp.view.DetailActivity
 
 class GhAdapter(private val context: Context, private val ghlist: ArrayList<GhUserModel>) :
     RecyclerView.Adapter<GhAdapter.GhViewHolder>() {
@@ -37,8 +37,8 @@ class GhAdapter(private val context: Context, private val ghlist: ArrayList<GhUs
                 .load(user.userpic)
                 .into(binding.ghUserpic)
 
-            binding.ghId.text = user.id
             binding.ghUname.text = user.uname
+            binding.tvId.text = user.location
 
             with(itemView) {
                 binding.user.setOnClickListener {

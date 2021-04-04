@@ -1,10 +1,10 @@
-package com.fort0.githubuserapp.ui
+package com.fort0.githubuserapp.view
 
+import android.content.Intent.EXTRA_USER
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.fort0.githubuserapp.adapters.GhAdapter
 import com.fort0.githubuserapp.databinding.ActivityDetailBinding
 import com.fort0.githubuserapp.databinding.GhUserRowBinding
 import com.fort0.githubuserapp.model.GhUserModel
@@ -18,24 +18,16 @@ import org.json.JSONObject
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var ghBinding: GhUserRowBinding
-    private var users: ArrayList<GhUserModel> = arrayListOf()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        getDataDetail()
+        val user = intent.getParcelableExtra<GhUserModel>(EXTRA_DETAILS) as GhUserModel
+        getUserData(user.uname)
 
     }
-
-    private fun getDataDetail() {
-        getUserData("fortoszone")
-
-    }
-
     companion object {
         const val EXTRA_DETAILS = "extra_details"
     }
@@ -48,7 +40,7 @@ class DetailActivity : AppCompatActivity() {
     private fun getUserData(username: String) {
         val client = AsyncHttpClient()
         val url = "https://api.github.com/users/$username"
-        client.addHeader("Authorization", "token d2f2cc3f88418522fdd4a1a5cdf264ec464a6068")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
