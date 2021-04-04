@@ -1,13 +1,15 @@
 package com.fort0.githubuserapp.view
 
-import android.content.Intent.EXTRA_USER
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.fort0.githubuserapp.R
 import com.fort0.githubuserapp.databinding.ActivityDetailBinding
-import com.fort0.githubuserapp.databinding.GhUserRowBinding
 import com.fort0.githubuserapp.model.GhUserModel
+import com.fort0.githubuserapp.view.fragments.FollowersFragment
+import com.fort0.githubuserapp.view.fragments.FollowingFragment
+import com.fort0.githubuserapp.viewmodel.ViewPagerAdapter
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -27,7 +29,10 @@ class DetailActivity : AppCompatActivity() {
         val user = intent.getParcelableExtra<GhUserModel>(EXTRA_DETAILS) as GhUserModel
         getUserData(user.uname)
 
+        initFollowTab()
+
     }
+
     companion object {
         const val EXTRA_DETAILS = "extra_details"
     }
@@ -40,7 +45,7 @@ class DetailActivity : AppCompatActivity() {
     private fun getUserData(username: String) {
         val client = AsyncHttpClient()
         val url = "https://api.github.com/users/$username"
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -86,8 +91,32 @@ class DetailActivity : AppCompatActivity() {
                 .load(jsonObject.getString("avatar_url"))
                 .into(binding.detailUserpic)
 
+            val username = jsonObject.getString("login")
+            val bundle = Bundle()
+            bundle.putString("bundle_uname", username)
+
+            val following = FollowingFragment()
+            following.arguments = bundle
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun initFollowTab() {
+        val adapter = ViewPagerAdapter(supportFragmentManager)
+        adapter.addFragment(FollowingFragment(), getString(R.string.following))
+        adapter.addFragment(FollowersFragment(), getString(R.string.followers))
+        followViewPager.adapter = adapter
+        followTab.setupWithViewPager(followViewPager)
+    }
+
+    fun fragmentMethod() {
+        Toast.makeText(this, "Method called From Fragment",
+            Toast.LENGTH_LONG).show()
+    }
+
+    fun getFollowingList() {
+
     }
 }

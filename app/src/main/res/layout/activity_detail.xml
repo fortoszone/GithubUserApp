@@ -11,7 +11,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="30dp"
-        android:src="@drawable/deva"
+        android:src="@drawable/ic_github_logo"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="5dp"/>
 
@@ -132,6 +132,7 @@
     </RelativeLayout>
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/followTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/gh_user_data"
@@ -140,8 +141,10 @@
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
+        android:id="@+id/followViewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_below="@id/followTab">
 
     </androidx.viewpager.widget.ViewPager>
 

@@ -5,7 +5,6 @@
     <string name="about">About</string>
     <string name="about_name">Devwanto Dariel Nugroho</string>
     <string name="about_email">devanugroho03@gmail.com</string>
-    <string name="user">Username</string>
     <string name="home">Home</string>
     <string name="company">Company</string>
     <string name="following">Following</string>
@@ -13,6 +12,12 @@
     <string name="count">0</string>
     <string name="followers">Followers</string>
     <string name="repository">Repository</string>
+    <string name="title_activity_test">test</string>
+    <string name="search">Search</string>
+    <string name="id">userid</string>
+    <string name="tv_id">ID :</string>
+    <string name="search_desc">Find your Github Profile Here</string>
+
 
     <!-- Other string resources-->
 
@@ -119,11 +124,4 @@
         <item>@drawable/user9</item>
         <item>@drawable/user10</item>
     </string-array>
-    <string name="title_activity_test">test</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="search">Search</string>
-    <string name="id">userid</string>
-    <string name="tv_id">ID :</string>
-    <string name="search_desc">Search some bb</string>
 </resources>

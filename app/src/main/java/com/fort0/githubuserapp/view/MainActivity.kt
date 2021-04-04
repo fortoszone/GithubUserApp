@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     private fun getUserData(username: String) {
         val client = AsyncHttpClient()
         val url = "https://api.github.com/search/users?q=$username"
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "fortoszone")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -117,6 +117,7 @@ class MainActivity : AppCompatActivity() {
         sv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return if (query!!.isNotEmpty()) {
+                    users.clear()
                     getUserData(query)
                     iv_search.visibility = View.INVISIBLE
                     search_desc.visibility = View.INVISIBLE
@@ -124,6 +125,7 @@ class MainActivity : AppCompatActivity() {
                     true
 
                 } else {
+                    users.clear()
                     iv_search.visibility = View.VISIBLE
                     false
                 }

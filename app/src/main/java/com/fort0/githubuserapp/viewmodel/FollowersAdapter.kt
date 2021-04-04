@@ -1,19 +1,21 @@
 package com.fort0.githubuserapp.viewmodel
 
 import com.fort0.githubuserapp.model.GhUserModel
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.fort0.githubuserapp.R
 import com.fort0.githubuserapp.databinding.GhUserRowBinding
 import com.fort0.githubuserapp.view.DetailActivity
+import com.fort0.githubuserapp.view.fragments.FollowersFragment
+import com.fort0.githubuserapp.view.fragments.FollowingFragment
 
-class GhAdapter(private val context: Context, private val ghlist: ArrayList<GhUserModel>) :
-    RecyclerView.Adapter<GhAdapter.GhViewHolder>() {
+class FollowersAdapter(private val context: FollowersFragment, private val ghlist: ArrayList<GhUserModel>) :
+    RecyclerView.Adapter<FollowersAdapter.GhViewHolder>() {
     lateinit var users: ArrayList<GhUserModel>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GhViewHolder {
@@ -42,9 +44,7 @@ class GhAdapter(private val context: Context, private val ghlist: ArrayList<GhUs
 
             with(itemView) {
                 binding.user.setOnClickListener {
-                    val moveActivity = Intent(itemView.context, DetailActivity::class.java)
-                    moveActivity.putExtra(DetailActivity.EXTRA_DETAILS, user)
-                    itemView.context.startActivity(moveActivity)
+                    Toast.makeText(context, user.uname, Toast.LENGTH_SHORT).show()
                 }
             }
         }

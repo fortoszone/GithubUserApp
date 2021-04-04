@@ -70,7 +70,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/user"
             app:layout_constraintRight_toRightOf="@id/gh_uname"
-            app:srcCompat="@drawable/deva" />
+            app:srcCompat="@drawable/ic_github_logo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
