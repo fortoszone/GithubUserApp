@@ -1,34 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/main_toolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/tl_margin_hor"
+        android:layout_marginTop="@dimen/tl_margin_top">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_gh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            tools:listitem="@layout/gh_user_row" />
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:paddingTop="50dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.282"
+            app:srcCompat="@drawable/ic_search_engine_two_color" />
 
         <TextView
-            android:id="@+id/main_title"
+            android:id="@+id/search_desc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:text="@string/app_name"
-            android:textColor="@color/white"
-            android:textSize="22sp" />
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_gh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/gh_user_row"
-        android:layout_below="@id/main_toolbar"/>
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="10dp"
+            android:text="@string/search_desc"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_search"
+            tools:layout_editor_absoluteX="0dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

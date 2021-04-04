@@ -9,14 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUserApp">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".test"
+            android:label="@string/title_activity_test"
+            android:theme="@style/Theme.GithubUserApp.NoActionBar"></activity>
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailActivity">
+        <activity android:name=".view.DetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

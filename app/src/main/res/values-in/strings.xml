@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GithubUserApp</string>
+    <string name="user_name">Nama Pengguna</string>
+    <string name="full_name">Nama Lengkap</string>
+    <string name="about">Tentang</string>
+    <string name="about_name">Devwanto Dariel Nugroho</string>
+    <string name="about_email">devanugroho03@gmail.com</string>
+    <string name="home">Beranda</string>
+    <string name="company">Perusahaan</string>
+    <string name="followers">Pengikut</string>
+    <string name="following">Mengikuti</string>
+    <string name="location">Lokasi</string>
+    <string name="count">0</string>
+    <string name="repository">Repositori</string>
+    <string name="search">Cari</string>
+    <string name="id">idpengguna</string>
+    <string name="tv_id">ID :</string>
+    <string name="search_desc">Temukan profil Github anda disini</string>
+    <string name="title_activity_test">test</string>
+
+</resources>
