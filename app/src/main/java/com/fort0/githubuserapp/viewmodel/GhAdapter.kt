@@ -1,6 +1,5 @@
 package com.fort0.githubuserapp.viewmodel
 
-import com.fort0.githubuserapp.model.GhUserModel
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -10,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.fort0.githubuserapp.R
 import com.fort0.githubuserapp.databinding.GhUserRowBinding
+import com.fort0.githubuserapp.model.GhUserModel
 import com.fort0.githubuserapp.view.DetailActivity
 
 class GhAdapter(private val context: Context, private val ghlist: ArrayList<GhUserModel>) :
     RecyclerView.Adapter<GhAdapter.GhViewHolder>() {
-    lateinit var users: ArrayList<GhUserModel>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GhViewHolder {
         val view: View =
@@ -28,6 +27,7 @@ class GhAdapter(private val context: Context, private val ghlist: ArrayList<GhUs
 
     override fun getItemCount(): Int {
         return this.ghlist.size
+
     }
 
     inner class GhViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -1,29 +1,27 @@
 package com.fort0.githubuserapp.view.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fort0.githubuserapp.R
-import com.fort0.githubuserapp.databinding.FragmentFollowingBinding
 import com.fort0.githubuserapp.model.GhUserModel
 import com.fort0.githubuserapp.viewmodel.FollowersAdapter
-import com.fort0.githubuserapp.viewmodel.FollowingAdapter
-import com.fort0.githubuserapp.viewmodel.ViewPagerAdapter
-import com.fort0.githubuserapp.viewmodel.GhAdapter
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.fragment_followers.*
-import kotlinx.android.synthetic.main.fragment_following.*
 import org.json.JSONArray
 
 class FollowersFragment : Fragment() {
     private lateinit var adapter: FollowersAdapter
     private var users: ArrayList<GhUserModel> = arrayListOf()
+    private val followersList = MutableLiveData<ArrayList<GhUserModel>>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +30,8 @@ class FollowersFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_followers, container, false)
         adapter = FollowersAdapter(this, users)
         users.clear()
-        val dataUser = activity!!.intent.getParcelableExtra<GhUserModel>(FollowingFragment.EXTRA_DETAILS) as GhUserModel
+        val dataUser =
+            activity!!.intent.getParcelableExtra<GhUserModel>(FollowingFragment.EXTRA_DETAILS) as GhUserModel
         getFollowerUser(dataUser.uname)
 
         return view
@@ -41,7 +40,7 @@ class FollowersFragment : Fragment() {
     private fun getFollowerUser(username: String) {
         val client = AsyncHttpClient()
         val url = " https://api.github.com/users/$username/followers"
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -77,20 +76,16 @@ class FollowersFragment : Fragment() {
 
             for (i in 0 until items.length()) {
                 val item = items.getJSONObject(i)
-                uname = item.getString("login")
-                userpic = item.getString("avatar_url")
-                userid = item.getInt("id").toString()
+                val user = GhUserModel()
+                user.uname = item.getString("login")
+                user.userid = item.getString("id")
+                user.userpic = item.getString("avatar_url")
+                users.add(user)
             }
 
-            users.add(
-                GhUserModel(
-                    userid,
-                    uname,
-                    userpic
-                )
-            )
+            followersList.postValue(users)
 
-        } catch (e:  Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
