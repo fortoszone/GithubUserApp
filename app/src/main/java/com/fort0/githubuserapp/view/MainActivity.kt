@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     private fun getUserData(username: String) {
         val client = AsyncHttpClient()
         val url = "https://api.github.com/search/users?q=$username"
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token <token here>")
         client.addHeader("User-Agent", "fortoszone")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
