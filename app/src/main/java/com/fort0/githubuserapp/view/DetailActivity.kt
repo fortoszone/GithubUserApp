@@ -1,6 +1,7 @@
 package com.fort0.githubuserapp.view
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -20,17 +21,17 @@ import org.json.JSONObject
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
+    private var users: ArrayList<GhUserModel> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val user = intent.getParcelableExtra<GhUserModel>(EXTRA_DETAILS) as GhUserModel
-        getUserData(user.uname)
-
         initFollowTab()
 
+        val user = intent.getParcelableExtra<GhUserModel>(EXTRA_DETAILS) as GhUserModel
+        getUserData(user.uname)
     }
 
     companion object {
@@ -43,9 +44,11 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun getUserData(username: String) {
+        progress_bar.visibility = View.VISIBLE
+
         val client = AsyncHttpClient()
         val url = "https://api.github.com/users/$username"
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token <token here>")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -55,6 +58,7 @@ class DetailActivity : AppCompatActivity() {
             ) {
                 val response = String(responseBody)
                 parseJsonData(response)
+
             }
 
             override fun onFailure(
@@ -98,6 +102,8 @@ class DetailActivity : AppCompatActivity() {
             val following = FollowingFragment()
             following.arguments = bundle
 
+            progress_bar.visibility = View.INVISIBLE
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -111,12 +117,8 @@ class DetailActivity : AppCompatActivity() {
         followTab.setupWithViewPager(followViewPager)
     }
 
-    fun fragmentMethod() {
-        Toast.makeText(this, "Method called From Fragment",
-            Toast.LENGTH_LONG).show()
-    }
-
-    fun getFollowingList() {
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        users.clear()
     }
 }

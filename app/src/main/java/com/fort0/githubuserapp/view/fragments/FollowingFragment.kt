@@ -1,29 +1,26 @@
 package com.fort0.githubuserapp.view.fragments
 
-import android.nfc.NfcAdapter.EXTRA_DATA
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fort0.githubuserapp.R
-import com.fort0.githubuserapp.databinding.GhUserRowBinding
 import com.fort0.githubuserapp.model.GhUserModel
-import com.fort0.githubuserapp.view.DetailActivity
 import com.fort0.githubuserapp.viewmodel.FollowingAdapter
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.fragment_following.*
-import kotlinx.android.synthetic.main.gh_user_row.*
 import org.json.JSONArray
 
 class FollowingFragment : Fragment() {
     private lateinit var adapter: FollowingAdapter
     private var users: ArrayList<GhUserModel> = arrayListOf()
-    private lateinit var detailBinding: GhUserRowBinding
+    private val followingList = MutableLiveData<ArrayList<GhUserModel>>()
 
     companion object {
         const val EXTRA_DETAILS = "extra_details"
@@ -36,7 +33,8 @@ class FollowingFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_following, container, false)
         adapter = FollowingAdapter(this, users)
         users.clear()
-        val dataUser = activity!!.intent.getParcelableExtra<GhUserModel>(EXTRA_DETAILS) as GhUserModel
+        val dataUser =
+            activity!!.intent.getParcelableExtra<GhUserModel>(EXTRA_DETAILS) as GhUserModel
         getFollowingUserData(dataUser.uname)
 
         return view
@@ -46,7 +44,7 @@ class FollowingFragment : Fragment() {
     private fun getFollowingUserData(username: String) {
         val client = AsyncHttpClient()
         val url = " https://api.github.com/users/$username/following"
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token <token here>")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
@@ -82,18 +80,14 @@ class FollowingFragment : Fragment() {
             val items = JSONArray(response)
             for (i in 0 until items.length()) {
                 val item = items.getJSONObject(i)
-                uname = item.getString("login")
-                userpic = item.getString("avatar_url")
-                userid = item.getString("id")
+                val user = GhUserModel()
+                user.uname = item.getString("login")
+                user.userid = item.getString("id")
+                user.userpic = item.getString("avatar_url")
+                users.add(user)
             }
 
-            users.add(
-                GhUserModel(
-                    userid,
-                    uname,
-                    userpic
-                )
-            )
+            followingList.postValue(users)
 
         } catch (e: Exception) {
             e.printStackTrace()
