@@ -1,0 +1,12 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <SwitchPreferenceCompat
+        app:key="reminder"
+        app:title="Turn On Reminder"
+        app:summary="Get your reminder everyday at 09:00 AM" />
+
+    <Preference
+        app:key="about"
+        app:title="@string/about"
+        app:useSimpleSummaryProvider="true" />
+
+</PreferenceScreen>

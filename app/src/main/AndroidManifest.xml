@@ -9,10 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUserApp">
+        <activity android:name=".view.AboutActivity"></activity>
+        <activity android:name=".view.FavoriteActivity" />
+        <activity
+            android:name=".view.SettingsActivity"
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".test"
             android:label="@string/title_activity_test"
-            android:theme="@style/Theme.GithubUserApp.NoActionBar"></activity>
+            android:theme="@style/Theme.GithubUserApp.NoActionBar" />
         <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
