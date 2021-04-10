@@ -2,11 +2,13 @@
     <SwitchPreferenceCompat
         app:key="reminder"
         app:title="Turn On Reminder"
-        app:summary="Get your reminder everyday at 09:00 AM" />
+        app:summary="Get your reminder everyday at 09:00 AM"
+        app:iconSpaceReserved="false" />
 
     <Preference
         app:key="about"
         app:title="@string/about"
-        app:useSimpleSummaryProvider="true" />
+        app:useSimpleSummaryProvider="true"
+        app:iconSpaceReserved="false" />
 
 </PreferenceScreen>

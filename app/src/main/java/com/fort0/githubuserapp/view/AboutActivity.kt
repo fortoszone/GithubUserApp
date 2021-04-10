@@ -10,6 +10,7 @@ class AboutActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val toolbar = supportActionBar

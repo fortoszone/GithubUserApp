@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     private var users: ArrayList<GhUserModel> = arrayListOf()
     private val searchList = MutableLiveData<ArrayList<GhUserModel>>()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -40,7 +39,6 @@ class MainActivity : AppCompatActivity() {
 
         adapter = GhAdapter(this, users)
         rvGh.adapter = adapter
-
     }
 
     private fun showRecyclerView() {
@@ -98,7 +96,6 @@ class MainActivity : AppCompatActivity() {
             searchList.postValue(users)
             showRecyclerView()
             progress_bar.visibility = View.INVISIBLE
-
 
         } catch (e: Exception) {
             e.printStackTrace()
