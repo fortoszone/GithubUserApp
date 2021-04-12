@@ -1,29 +1,21 @@
 package com.fort0.githubuserapp.view
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.BitmapFactory
-import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import com.fort0.githubuserapp.R
+import com.fort0.githubuserapp.utils.ReminderReceiver
 
 class SettingsActivity : AppCompatActivity() {
 
-    private lateinit var sp: SharedPreferences
-
-    companion object {
-        private const val NOTIFICATION_ID = 1
-        private const val CHANNEL_ID = "channel_01"
-        private const val CHANNEL_NAME = "dicoding channel"
-        const val reminder = "reminder"
-    }
+    private lateinit var reminderReceiver: ReminderReceiver
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,23 +28,44 @@ class SettingsActivity : AppCompatActivity() {
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.settings)
-
-        createNotificationChannel()
-
-        /*val sp: SharedPreferences = getSharedPreferences("spref", Context.MODE_PRIVATE)
-        val editor = sp.edit()
-
-        editor.apply {
-            //putBoolean(reminder, switch.isChecked)
-            sendNotification()
-
-        }.apply()*/
     }
 
-    class SettingsFragment : PreferenceFragmentCompat() {
+    class SettingsFragment : PreferenceFragmentCompat(),
+        SharedPreferences.OnSharedPreferenceChangeListener,
+        PreferenceManager.OnPreferenceTreeClickListener {
+
+        private var mContext: Context? = null
+
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            val sp = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            sp.registerOnSharedPreferenceChangeListener(this)
+
+        }
+
+        override fun onAttach(context: Context) {
+            super.onAttach(context)
+            mContext = context
+        }
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
+        }
+
+        override fun onSharedPreferenceChanged(prefs: SharedPreferences?, key: String?) {
+            val reminderReceiver = ReminderReceiver()
+            val isReminderActivated = prefs?.getBoolean(key, false) ?: return
+
+            if (isReminderActivated) {
+                reminderReceiver.setReminder(mContext)
+                Toast.makeText(mContext, "Reminder enabled", Toast.LENGTH_SHORT).show()
+
+            } else {
+                reminderReceiver.cancelReminder()
+                Toast.makeText(context, "Reminder disabled", Toast.LENGTH_SHORT).show()
+
+            }
         }
 
         override fun onPreferenceTreeClick(prefs: Preference?): Boolean {
@@ -67,34 +80,10 @@ class SettingsActivity : AppCompatActivity() {
             val moveActivity = Intent(activity, AboutActivity::class.java)
             startActivity(moveActivity)
         }
-    }
 
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = getString(R.string.reminder)
-            val desc = getString(R.string.notification_desc)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = desc
-            }
-
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+        override fun onDetach() {
+            super.onDetach()
+            mContext = null
         }
-    }
-
-    private fun sendNotification() {
-        val mNotificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        val mBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_github_logo)
-            .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_github_logo))
-            .setContentTitle(resources.getString(R.string.notification_title))
-            .setContentText(resources.getString(R.string.notification_text))
-            .setAutoCancel(true)
-        val notification = mBuilder.build()
-        mNotificationManager.notify(NOTIFICATION_ID, notification)
     }
 }
