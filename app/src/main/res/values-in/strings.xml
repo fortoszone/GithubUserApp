@@ -18,5 +18,11 @@
     <string name="tv_id">ID :</string>
     <string name="search_desc">Temukan profil Github anda disini</string>
     <string name="title_activity_test">test</string>
+    <string name="favorites">Favorit</string>
+    <string name="settings">Settings</string>
+    <string name="title_activity_settings">SettingsActitivy</string>
+    <string name="notification_title">Ini adalah notifikasi pengingat</string>
+    <string name="reminder">Pengingat</string>
+    <string name="notification_desc">Reminder to visit the app at 9AM everyday</string>
 
 </resources>

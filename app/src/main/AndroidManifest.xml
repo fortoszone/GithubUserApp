@@ -4,6 +4,14 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <permission
+        android:name="com.fort0.githubuserapp.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.fort0.githubuserapp.WRITE_DATABASE"
+        android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUserApp">
+
         <receiver android:name=".utils.ReminderReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -41,6 +50,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <provider
+            android:name=".provider.FavoriteProvider"
+            android:authorities="com.fort0.githubuserapp"
+            android:exported="true"
+            android:enabled="true"
+            android:readPermission="com.fort0.githubuserapp.READ_DATABASE"
+            android:writePermission="com.fort0.githubuserapp.WRITE_DATABASE" />
+    </application>
 </manifest>

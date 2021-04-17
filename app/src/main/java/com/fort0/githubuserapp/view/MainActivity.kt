@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         rvGh.setHasFixedSize(true)
 
         adapter = GhAdapter(this, users)
-        rvGh.adapter = adapter
+        binding.rvGh.adapter = adapter
     }
 
     private fun showRecyclerView() {
@@ -50,8 +50,8 @@ class MainActivity : AppCompatActivity() {
     private fun getUserData(username: String) {
         val client = AsyncHttpClient()
         val url = "https://api.github.com/search/users?q=$username"
-        client.addHeader("Authorization", "token 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")
-        client.addHeader("User-Agent", "fortoszone")
+        client.addHeader("Authorization", "token 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")
+        client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
@@ -152,5 +152,12 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         users.clear()
+    }
+
+    override fun onRestart() {
+        binding.progressBar.visibility = View.VISIBLE
+        super.onRestart()
+        users.clear()
+        binding.progressBar.visibility = View.INVISIBLE
     }
 }

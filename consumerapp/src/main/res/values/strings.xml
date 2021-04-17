@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GithubUserConsumerApp</string>
+    <string name="title">GithubUserConsumerApp</string>
+    <string name="id">userid</string>
+    <string name="tv_id">"ID : "</string>
+    <string name="user_name">Username</string>
+</resources>

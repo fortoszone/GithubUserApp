@@ -57,7 +57,6 @@ class ReminderReceiver : BroadcastReceiver() {
                 )
             )
             .setContentTitle(context.getString(R.string.notification_title))
-            .setContentText(context.getString(R.string.notification_desc))
             .setAutoCancel(true)
 
         val notification = mBuilder.build()
@@ -75,7 +74,7 @@ class ReminderReceiver : BroadcastReceiver() {
         calendar.set(Calendar.MINUTE, 0)
         calendar.set(Calendar.SECOND, 1)
 
-        alarmManager.setInexactRepeating(
+        alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP, calendar.timeInMillis,
             AlarmManager.INTERVAL_DAY, pendingIntent
         )
