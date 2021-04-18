@@ -17,4 +17,11 @@
     <string name="id">userid</string>
     <string name="tv_id">ID :</string>
     <string name="search_desc">Find your Github Profile Here</string>
+    <string name="favorites">Favorites</string>
+    <string name="settings">Settings</string>
+    <string name="title_activity_settings">SettingsActitivy</string>
+    <string name="notification_title">Here is the reminder</string>
+    <string name="reminder">Reminder</string>
+    <string name="notification_desc">Reminder to visit the app at 9AM everyday</string>
+
 </resources>

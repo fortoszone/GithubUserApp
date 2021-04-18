@@ -31,7 +31,7 @@ class FollowersFragment : Fragment() {
         adapter = FollowersAdapter(this, users)
         users.clear()
         val dataUser =
-            activity!!.intent.getParcelableExtra<GhUserModel>(FollowingFragment.EXTRA_DETAILS) as GhUserModel
+            requireActivity().intent.getParcelableExtra<GhUserModel>(FollowingFragment.EXTRA_DETAILS) as GhUserModel
         getFollowerUser(dataUser.uname)
 
         return view
@@ -40,7 +40,7 @@ class FollowersFragment : Fragment() {
     private fun getFollowerUser(username: String) {
         val client = AsyncHttpClient()
         val url = " https://api.github.com/users/$username/followers"
-        client.addHeader("Authorization", "token <token here>")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(

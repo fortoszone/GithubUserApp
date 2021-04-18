@@ -1,5 +1,6 @@
 package com.fort0.githubuserapp.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -28,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     private var users: ArrayList<GhUserModel> = arrayListOf()
     private val searchList = MutableLiveData<ArrayList<GhUserModel>>()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -38,8 +38,7 @@ class MainActivity : AppCompatActivity() {
         rvGh.setHasFixedSize(true)
 
         adapter = GhAdapter(this, users)
-        rvGh.adapter = adapter
-
+        binding.rvGh.adapter = adapter
     }
 
     private fun showRecyclerView() {
@@ -51,8 +50,8 @@ class MainActivity : AppCompatActivity() {
     private fun getUserData(username: String) {
         val client = AsyncHttpClient()
         val url = "https://api.github.com/search/users?q=$username"
-        client.addHeader("Authorization", "token <token here>")
-        client.addHeader("User-Agent", "fortoszone")
+        client.addHeader("Authorization", "token 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")
+        client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(
                 statusCode: Int,
@@ -98,7 +97,6 @@ class MainActivity : AppCompatActivity() {
             showRecyclerView()
             progress_bar.visibility = View.INVISIBLE
 
-
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -106,7 +104,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.nav_menu, menu)
-        val search: MenuItem? = menu?.findItem(R.id.search)
+        val search: MenuItem? = menu?.findItem(R.id.btn_search)
         val sv: SearchView = search!!.actionView as SearchView
         sv.queryHint = getString(R.string.search)
 
@@ -125,7 +123,6 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     users.clear()
                     false
-
                 }
             }
 
@@ -135,11 +132,32 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        val settings: MenuItem? = menu.findItem(R.id.btn_settings)
+        settings?.setOnMenuItemClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            this.startActivity(intent)
+            true
+        }
+
+        val favorites: MenuItem? = menu.findItem(R.id.btn_favorite)
+        favorites?.setOnMenuItemClickListener {
+            val intent = Intent(this, FavoriteActivity::class.java)
+            this.startActivity(intent)
+            true
+        }
+
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         users.clear()
+    }
+
+    override fun onRestart() {
+        binding.progressBar.visibility = View.VISIBLE
+        super.onRestart()
+        users.clear()
+        binding.progressBar.visibility = View.INVISIBLE
     }
 }
