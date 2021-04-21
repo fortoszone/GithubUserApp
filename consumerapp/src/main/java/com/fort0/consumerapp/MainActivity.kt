@@ -127,6 +127,7 @@ class MainActivity : AppCompatActivity() {
                     404 -> "$statusCode : Not Found"
                     else -> "$statusCode : ${error.message}"
                 }
+                binding.pbFav.visibility = View.INVISIBLE
                 Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
             }
         })
